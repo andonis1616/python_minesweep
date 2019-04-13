@@ -1,5 +1,5 @@
 import random
-from os import system, name 
+from os import system, name
 dx = [-1,-1,-1,0,0,1,1,1]
 dy = [-1,0,1,-1,1,-1,0,1]
 
@@ -30,8 +30,8 @@ def init():
 		for j in range(1,n+1):
 			if Board[i][j] != -1:
 				sum = 0
-				for k in range(0,8):
-					if Board[i+dx[k]][j+dy[k]] == -1:
+				for q in range(0,8):
+					if Board[i+dx[q]][j+dy[q]] == -1:
 						sum += 1
 				Board[i][j] = sum
 
@@ -43,11 +43,14 @@ def print_Board(to_print_Board):
 		print('\n'),
 
 def Won():
+	sum = 0
 	for i in range(1,n+1):
 		for j in range(1,n+1):
-			if VisibleBoard[i][j] == 'X':
-				return 0
-	return 1
+			sum += VisitedBoard[i][j]
+	if sum == n*n:
+		return 1
+	else:
+		return 0
 
 def inMatrix(x):
 	if x<1 or x>n:
@@ -57,13 +60,13 @@ def inMatrix(x):
 def Discover(x,y):
 	VisitedBoard[x][y] = 1
 	VisibleBoard[x][y] = 0
-	for k in range(0,8):
-		if VisitedBoard[x+dx[k]][y+dy[k]] == 0 and inMatrix(x+dx[k]) and inMatrix(y+dy[k]):
-			VisitedBoard[x+dx[k]][y+dy[k]] = 1
-			if Board[x+dx[k]][y+dy[k]] == 0:
-				Discover(x+dx[k],y+dy[k])
+	for q in range(0,8):
+		if VisitedBoard[x+dx[q]][y+dy[q]] == 0 and inMatrix(x+dx[q]) and inMatrix(y+dy[q]):
+			VisitedBoard[x+dx[q]][y+dy[q]] = 1
+			if Board[x+dx[q]][y+dy[q]] == 0:
+				Discover(x+dx[q],y+dy[q])
 			else:
-				VisibleBoard[x+dx[k]][y+dy[k]] = Board[x+dx[k]][y+dy[k]]
+				VisibleBoard[x+dx[q]][y+dy[q]] = Board[x+dx[q]][y+dy[q]]
 
 def Game():
 	global k
