@@ -3,6 +3,7 @@ from os import system, name
 dx = [-1,-1,-1,0,0,1,1,1]
 dy = [-1,0,1,-1,1,-1,0,1]
 
+#Clearing the console
 def clear(): 
     if name == 'nt': 
         _ = system('cls') 
@@ -16,6 +17,9 @@ Board = [[0 for i in range(n+2)] for i in range(n+2)]
 VisibleBoard = [['X' for i in range(n+2)] for i in range(n+2)]
 VisitedBoard = [[0 for i in range(n+2)] for i in range(n+2)]
 
+#Initialazing the board
+#With random bombs places
+#And calculating after placing bombs each value in the matrix
 def init():
 	global n
 	global k
@@ -35,6 +39,7 @@ def init():
 						sum += 1
 				Board[i][j] = sum
 
+#Function to print the board
 def print_Board(to_print_Board):
 	global n
 	for i in range(1,n+1):
@@ -42,6 +47,7 @@ def print_Board(to_print_Board):
 			print(to_print_Board[i][j]),
 		print('\n'),
 
+#Winning condition
 def Won():
 	sum = 0
 	for i in range(1,n+1):
@@ -52,11 +58,13 @@ def Won():
 	else:
 		return 0
 
+#To see if i went out if the matrix
 def inMatrix(x):
 	if x<1 or x>n:
 		return 0
 	return 1
 
+#The function that discovers all the blocks with 0 in them
 def Discover(x,y):
 	VisitedBoard[x][y] = 1
 	VisibleBoard[x][y] = 0
@@ -68,6 +76,7 @@ def Discover(x,y):
 			else:
 				VisibleBoard[x+dx[q]][y+dy[q]] = Board[x+dx[q]][y+dy[q]]
 
+#The actual game
 def Game():
 	global k
 	while True:
